@@ -30,9 +30,7 @@ export const getReviewsByGame = async (req: Request, res: Response) => {
     try {
         const query = new ReviewFindDto(req.body);
         const reviews = await getReviewsByGameId(query);
-        res.send({
-            reviews,
-        });
+        res.send(reviews);
     } catch (err) {
         const {message, status} = new InternalError(err);
         log4js.getLogger().error(`Error in searching students.`, err);
