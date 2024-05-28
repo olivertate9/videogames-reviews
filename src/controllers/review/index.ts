@@ -2,9 +2,9 @@ import {Request, Response} from "express";
 import log4js from 'log4js';
 import httpStatus from 'http-status';
 import {
-    countReviewsByGameId,
-    createReview as createReviewApi,
-    getReviewsByGameId,
+  countReviewsByGameId,
+  createReview as createReviewApi,
+  getReviewsByGameId,
 } from "src/services/review/reviewService";
 import {ReviewCreateDto} from "src/dto/reviews/reviewCreateDto";
 import {ReviewFindDto} from "src/dto/reviews/reviewFindDto";
@@ -20,7 +20,7 @@ export const createReview = async (req: Request, res: Response) => {
             review,
         });
     } catch (err) {
-        const { message, status } = new InternalError(err);
+        const {message, status} = new InternalError(err);
         log4js.getLogger().error('Error in creating review.', err);
         res.status(status).send({message});
     }
@@ -34,9 +34,9 @@ export const getReviewsByGame = async (req: Request, res: Response) => {
             reviews,
         });
     } catch (err) {
-        const { message, status } = new InternalError(err);
+        const {message, status} = new InternalError(err);
         log4js.getLogger().error(`Error in searching students.`, err);
-        res.status(status).send({ message });
+        res.status(status).send({message});
     }
 };
 
@@ -46,9 +46,9 @@ export const countReviews = async (req: Request, res: Response) => {
         const result = await countReviewsByGameId(gameIds);
         res.send(result);
     } catch (err) {
-        const { message, status } = new InternalError(err);
+        const {message, status} = new InternalError(err);
         log4js.getLogger().error(`Error in searching students.`, err);
-        res.status(status).send({ message });
+        res.status(status).send({message});
     }
 };
 

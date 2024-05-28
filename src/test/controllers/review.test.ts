@@ -5,13 +5,15 @@ import bodyParser from 'body-parser';
 import routers from 'src/routers/reviews';
 import express from 'express';
 import * as reviewService from 'src/services/review/reviewService';
-import { IReview } from "../../model/review";
+import {IReview} from "../../model/review";
 
-const { expect } = chai;
+const {expect} = chai;
 chai.use(chaiHttp);
+
 const app = express();
-app.use(bodyParser.json({ limit: '1mb' }));
+app.use(bodyParser.json({limit: '1mb'}));
 app.use('/', routers);
+
 const sandbox = sinon.createSandbox();
 
 describe('Review Controller Integration Test', () => {
@@ -25,7 +27,7 @@ describe('Review Controller Integration Test', () => {
             gameId: 123,
             quote: 'Great game!',
             rating: 5,
-            publishedAt: new Date('2024-05-22T14:30:00.000Z')
+            publishedAt: new Date('2024-05-22T14:30:00.000Z'),
         };
 
         const createReviewStub = sandbox.stub(reviewService, 'createReview');
@@ -33,7 +35,7 @@ describe('Review Controller Integration Test', () => {
 
         chai.request(app)
             .post('')
-            .send({ mockReview })
+            .send({mockReview})
             .end((_, res) => {
                 expect(res).to.have.status(201);
                 done();
@@ -45,7 +47,7 @@ describe('Review Controller Integration Test', () => {
             gameId: 123,
             quote: 'Great game!',
             rating: 5,
-            publishedAt: new Date('2024-05-22T14:30:00.000Z')
+            publishedAt: new Date('2024-05-22T14:30:00.000Z'),
         };
         const mockError = new Error('Database error');
         const createReviewStub = sandbox.stub(reviewService, 'createReview');
@@ -53,7 +55,7 @@ describe('Review Controller Integration Test', () => {
 
         chai.request(app)
             .post('')
-            .send({ mockReview })
+            .send({mockReview})
             .end((_, res) => {
                 expect(res).to.have.status(500);
                 expect(res.body).to.be.an('object');
@@ -67,8 +69,8 @@ describe('Review Controller Integration Test', () => {
             {
                 _id: '665097f8b0dc7a303c7ab9a6',
                 quote: 'Great game!',
-                rating: 5
-            }
+                rating: 5,
+            },
         ];
 
         const getReviewsByGameIdStub = sandbox.stub(reviewService, 'getReviewsByGameId');
@@ -76,7 +78,7 @@ describe('Review Controller Integration Test', () => {
 
         chai.request(app)
             .get('')
-            .send({ gameId: 123 })
+            .send({gameId: 123})
             .end((_, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body.reviews).to.deep.equal(mockReviews);
@@ -91,7 +93,7 @@ describe('Review Controller Integration Test', () => {
 
         chai.request(app)
             .get('')
-            .send({ gameId: 123 })
+            .send({gameId: 123})
             .end((_, res) => {
                 expect(res).to.have.status(500);
                 expect(res.body).to.be.an('object');
@@ -103,7 +105,7 @@ describe('Review Controller Integration Test', () => {
     it('should count reviews successfully', (done) => {
         const mockResult = {
             gameId: 123,
-            count: 5
+            count: 5,
         };
 
         const countReviewsByGameIdStub = sandbox.stub(reviewService, 'countReviewsByGameId');
@@ -111,7 +113,7 @@ describe('Review Controller Integration Test', () => {
 
         chai.request(app)
             .post('/_counts')
-            .send({ gameIds: [123] })
+            .send({gameIds: [123]})
             .end((_, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body).to.deep.equal(mockResult);
@@ -126,7 +128,7 @@ describe('Review Controller Integration Test', () => {
 
         chai.request(app)
             .post('/_counts')
-            .send({ gameIds: [123] })
+            .send({gameIds: [123]})
             .end((_, res) => {
                 expect(res).to.have.status(500);
                 expect(res.body).to.be.an('object');

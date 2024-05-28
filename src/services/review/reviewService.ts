@@ -11,7 +11,7 @@ export const createReview = async (reviewDto: ReviewCreateDto): Promise<IReview>
     await validateReview(reviewDto);
     const review = new Review(reviewDto);
     return review.save();
-}
+};
 
 export const getReviewsByGameId = async (reviewDto: ReviewFindDto): Promise<ReviewInfoDto[]> => {
     const {
@@ -38,8 +38,8 @@ export const countReviewsByGameId = async (
 ): Promise<Record<number, number>> => {
 
     const counts = await Review.aggregate([
-        { $match: { gameId: { $in: gameIds } } },
-        { $group: { _id: "$gameId", count: { $sum: 1 } } }
+        {$match: {gameId: {$in: gameIds}}},
+        {$group: {_id: "$gameId", count: {$sum: 1}}},
     ]);
 
     const countMap: Record<number, number> = {};

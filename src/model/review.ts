@@ -10,7 +10,7 @@ export interface IReview extends Document {
 const reviewSchema = new Schema({
     gameId: {
         type: Number,
-        required: [true, 'Game ID is required']
+        required: [true, 'Game ID is required'],
     },
 
     quote: {
@@ -29,7 +29,7 @@ const reviewSchema = new Schema({
     publishedAt: {
         type: Date,
         required: [true, 'Published date is required'],
-    }
+    },
 });
 
 const Review = mongoose.model<IReview>('Review', reviewSchema);

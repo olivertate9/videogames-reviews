@@ -20,7 +20,7 @@ const review1 = new Review({
     quote: "Great game!",
     rating: 9,
     gameId: gameId1,
-    publishedAt: new Date('2023-12-25')
+    publishedAt: new Date('2023-12-25'),
 });
 
 const review2 = new Review({
@@ -28,7 +28,7 @@ const review2 = new Review({
     quote: "Not my favorite.",
     rating: 6,
     gameId: gameId1,
-    publishedAt: new Date('2024-01-10')
+    publishedAt: new Date('2024-01-10'),
 });
 
 const review3 = new Review({
@@ -36,7 +36,7 @@ const review3 = new Review({
     quote: "Amazing experience!",
     rating: 10,
     gameId: gameId2,
-    publishedAt: new Date('2024-02-05')
+    publishedAt: new Date('2024-02-05'),
 });
 
 describe('Review Service', () => {
@@ -56,7 +56,7 @@ describe('Review Service', () => {
             quote: "Fun but buggy.",
             rating: 7,
             gameId: 1,
-            publishedAt: new Date('2024-01-07')
+            publishedAt: new Date('2024-01-07'),
         };
         sandbox.stub(axios, 'get').resolves({data: {}});
 
@@ -104,7 +104,7 @@ describe('Review Service', () => {
     it('countReviewsByGameId should return correct review counts', (done) => {
         reviewService.countReviewsByGameId([gameId1, gameId2])
             .then((counts) => {
-                expect(counts).to.eql({ [gameId1]: 2, [gameId2]: 1 });
+                expect(counts).to.eql({[gameId1]: 2, [gameId2]: 1});
                 done();
             })
             .catch(done);
